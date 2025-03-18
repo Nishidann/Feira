@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('localidades', {
+    await queryInterface.createTable('Atividades', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,11 +12,23 @@ module.exports = {
       nome: {
         type: Sequelize.STRING
       },
-      descricao: {
+      descrição: {
         type: Sequelize.STRING
       },
-      quantidadeSalas: {
+      monitores: {
         type: Sequelize.INTEGER
+      },
+      tipo: {
+        type: Sequelize.ENUM('seção', 'contínuo')
+      },
+      duracao: {
+        type: Sequelize.INTEGER
+      },
+      capacidadeVisitante: {
+        type: Sequelize.INTEGER
+      },
+      status: {
+        type: Sequelize.ENUM('ativo', 'inativo')
       },
       createdAt: {
         allowNull: false,
@@ -29,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('localidades');
+    await queryInterface.dropTable('Atividades');
   }
 };
