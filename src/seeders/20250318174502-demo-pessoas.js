@@ -30,7 +30,8 @@ module.exports = {
     ], {});
   },
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('pessoas', null, {});
+    async down (queryInterface, Sequelize) {
+      await queryInterface.bulkDelete('pessoas', null, {});
   }
 };
+
