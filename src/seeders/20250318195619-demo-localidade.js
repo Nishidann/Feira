@@ -1,25 +1,33 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  async up(queryInterface, Sequelize) {
+    await queryInterface.bulkInsert('localidades', [
+      {
+        nome: 'Bloco A',
+        descricao: 'Bloco principal com salas de aula',
+        quantidadeSalas: 15,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        nome: 'Biblioteca',
+        descricao: 'Local com livros e áreas de estudo',
+        quantidadeSalas: 5,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        nome: 'Laboratório de Informática',
+        descricao: 'Laboratório com computadores para prática',
+        quantidadeSalas: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ], {});
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+  async down(queryInterface, Sequelize) {
+    await queryInterface.bulkDelete('localidades', null, {});
   }
 };

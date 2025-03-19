@@ -16,11 +16,11 @@ module.exports = (sequelize, DataTypes) => {
   Localidade.init({
     nome: DataTypes.STRING,
     descricao: DataTypes.STRING,
-    qtd_salas: DataTypes.INTEGER
+    quantidadeSalas: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Localidade',
-    tableName: 'localidade'
+    tableName: 'localidades'
   });
   return Localidade;
 };

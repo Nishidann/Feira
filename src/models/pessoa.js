@@ -1,18 +1,14 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Pessoa extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      // Associação de herança: Pessoa pode ter um Monitor vinculado
+      Pessoa.hasOne(models.Monitor, { foreignKey: 'id' });
     }
   }
+
   Pessoa.init({
     nome: DataTypes.STRING,
     telefone: DataTypes.STRING,
@@ -23,5 +19,6 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Pessoa',
     tableName: 'pessoas'
   });
+
   return Pessoa;
 };
