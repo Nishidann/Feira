@@ -15,12 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Atividade.init({
     nome: DataTypes.STRING,
-    descrição: DataTypes.STRING,
-    monitores: DataTypes.INTEGER,
-    tipo: DataTypes.STRING,
-    duracao: DataTypes.INTEGER,
-    capacidadeVisitante: DataTypes.INTEGER,
-    status: DataTypes.STRING
+    descricao: DataTypes.STRING,
+    quantidadeMonitores: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Atividade',

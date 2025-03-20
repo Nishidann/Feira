@@ -1,14 +1,14 @@
 const { Router } = require('express');
-const MonitoresController = require('../controllers/MonitoresController.js');
+const MonitoresController = require('../controllers/MonitorController.js');
 
-const MonitorController = new MonitoresController();
+const monitorController = new MonitoresController();
 
 const router = Router();
 
-router.get('/Monitores', (req, res) => MonitorController.pegaTodos(req, res));
-router.get('/Monitores/:id', (req, res) => MonitorController.pegaUmPorId(req, res));
-router.post('/Monitores', (req, res) => MonitorController.criaNovo(req, res));
-router.put('/Monitores/:id', (req, res) => MonitorController.atualiza(req, res));
-router.delete('/Monitores/:id', (req, res) => MonitorController.exclui(req, res));
+router.get('/monitores', (req, res) => monitorController.pegaTodos(req, res));
+router.get('/monitores/:id', (req, res) => monitorController.pegaUmPorId(req, res));
+router.post('/monitores', (req, res) => monitorController.criaNovo(req, res));
+router.put('/monitores/:id', (req, res) => monitorController.atualiza(req, res));
+router.delete('/monitores/:id', (req, res) => monitorController.exclui(req, res));
 
 module.exports = router;

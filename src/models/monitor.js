@@ -1,9 +1,14 @@
 'use strict';
-const { Model } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+const Pessoa = require('./1pessoa.js')
+
+const { Model, DataTypes } = require('sequelize');
+
+module.exports = (sequelize) => {
+  const { Pessoa } = sequelize.models;
   class Monitor extends Pessoa {
     static associate(models) {
+      // Associações aqui se precisar
     }
   }
 

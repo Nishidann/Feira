@@ -2,7 +2,12 @@ const express = require('express');
 const pessoas = require('./pessoasRoute.js');
 const localidades = require('./localidadesRoute.js');
 const departamentos = require('./departamentosRoute.js');
-const professores = require('./professoresRoute.js')
+const professores = require('./professoresRoute.js');
+const monitores = require('./monitoresRoute.js');
+const organizadores = require('./organizadoresRoute.js');
+const atividadeSublocalidades = require('./atividadeSublocalidadesRoute.js');
+const sublocalidades = require('./sublocalidadesRoute.js');
+
 
 module.exports = app => {
   app.use(
@@ -10,6 +15,10 @@ module.exports = app => {
     pessoas,
     localidades,
     departamentos,
-    professores
+    professores,
+    monitores,
+    organizadores,
+    atividadeSublocalidades,
+    sublocalidades
   );
 };
