@@ -7,6 +7,8 @@ const monitores = require('./monitoresRoute.js');
 const organizadores = require('./organizadoresRoute.js');
 const atividadeSublocalidades = require('./atividadeSublocalidadesRoute.js');
 const sublocalidades = require('./sublocalidadesRoute.js');
+const atividadeLocalidades = require('./atividadeLocalidadesRoute.js');
+
 
 
 module.exports = app => {
@@ -19,6 +21,7 @@ module.exports = app => {
     monitores,
     organizadores,
     atividadeSublocalidades,
-    sublocalidades
+    sublocalidades,
+    atividadeLocalidades
   );
 };

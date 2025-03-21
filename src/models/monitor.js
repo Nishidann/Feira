@@ -1,6 +1,5 @@
 'use strict';
 
-const Pessoa = require('./1pessoa.js')
 
 const { Model, DataTypes } = require('sequelize');
 

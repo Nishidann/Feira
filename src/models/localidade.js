@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Localidade.hasMany(models.Sublocalidade, { foreignKey: 'idLocalidade' });
+      Localidade.hasMany(models.AtividadeLocalidade, { foreignKey: 'idLocalidade' });
     }
   }
   Localidade.init({

@@ -2,24 +2,33 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  async up(queryInterface, Sequelize) {
+    return queryInterface.bulkInsert("sublocalidades", [
+      {
+        nome: "Centro",
+        descricao: "Área central da cidade",
+        idlocalidade: 1, // Certifique-se de que essa localidade existe
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        nome: "Bairro Novo",
+        descricao: "Região em desenvolvimento",
+        idlocalidade: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        nome: "Vila Velha",
+        descricao: "Área histórica",
+        idlocalidade: 3,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]);
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+  async down(queryInterface, Sequelize) {
+    return queryInterface.bulkDelete("sublocalidades", null, {});
+  },
 };

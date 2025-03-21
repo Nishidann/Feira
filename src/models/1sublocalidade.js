@@ -4,10 +4,8 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Sublocalidade extends Model {
     static associate(models) {
-      Sublocalidade.belongsTo(models.Localidade, {
-        foreignKey: 'idLocalidade',
-        as: 'localidade'
-      });
+      Sublocalidade.hasMany(models.AtividadeSublocalidade, { foreignKey: 'idSublocalidade' });
+      Sublocalidade.belongsTo(models.Localidade, { foreignKey: 'idLocalidade'});
     }
   }
 
@@ -15,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       nome: DataTypes.STRING,
       descricao: DataTypes.STRING,
-      idlocalidade: {
+      idLocalidade: {
         type: DataTypes.INTEGER,
         references: {
           model: 'localidades',

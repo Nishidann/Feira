@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('professores', {
+    await queryInterface.createTable('AtividadeLocalidades', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,10 +12,16 @@ module.exports = {
       nome: {
         type: Sequelize.STRING
       },
-      idDepartamento: {
+      descricao: {
+        type: Sequelize.STRING
+      },
+      quantidadeMonitores: {
+        type: Sequelize.INTEGER
+      },
+      idLocalidade: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: {model: 'departamento' , key: 'id'}
+        references: {model: 'localidades' , key: 'id'}
       },
       createdAt: {
         allowNull: false,
@@ -28,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('professores');
+    await queryInterface.dropTable('AtividadeLocalidades');
   }
 };

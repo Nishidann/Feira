@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const atividadelocalidade = require('./atividadelocalidade');
 module.exports = (sequelize, DataTypes) => {
   const { Atividade } = sequelize.models; 
   class AtividadeSublocalidade extends Atividade {
@@ -11,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      AtividadeSublocalidade.belongsTo(models.Sublocalidade, { foreignKey: 'idSublocalidade'});
     }
   }
   AtividadeSublocalidade.init({
