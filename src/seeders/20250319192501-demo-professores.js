@@ -4,26 +4,11 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert('professores', [
-      { nome: 'Carlos Alberto', 
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { nome: 'Ana Beatriz', 
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { nome: 'João Silva', 
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { nome: 'Fernanda Lima', 
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      },
-      { nome: 'Ricardo Moreira', 
-        createdAt: new Date(), 
-        updatedAt: new Date() 
-      }
+      { nome: 'Carlos Alberto', idDepartamento: 1, createdAt: new Date(), updatedAt: new Date() },
+      { nome: 'Ana Beatriz', idDepartamento: 2, createdAt: new Date(), updatedAt: new Date() },
+      { nome: 'João Silva', idDepartamento: 3, createdAt: new Date(), updatedAt: new Date() },
+      { nome: 'Fernanda Lima', idDepartamento: 1, createdAt: new Date(), updatedAt: new Date() },
+      { nome: 'Ricardo Moreira', idDepartamento: 2, createdAt: new Date(), updatedAt: new Date() }
     ], {});
   },
 

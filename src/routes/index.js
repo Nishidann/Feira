@@ -8,6 +8,10 @@ const organizadores = require('./organizadoresRoute.js');
 const atividadeSublocalidades = require('./atividadeSublocalidadesRoute.js');
 const sublocalidades = require('./sublocalidadesRoute.js');
 const atividadeLocalidades = require('./atividadeLocalidadesRoute.js');
+const feiras = require('./feirasRoute.js');
+const agendamentoFeiras = require('./agendamentoFeirasRoute.js');
+const monitorAtividades = require('./monitorAtividadesRoute.js');
+const agendamentoAtividadeFeiras = require('./agendamentoAtividadeFeirasRoute.js');
 
 
 
@@ -22,6 +26,10 @@ module.exports = app => {
     organizadores,
     atividadeSublocalidades,
     sublocalidades,
-    atividadeLocalidades
+    atividadeLocalidades,
+    feiras,
+    agendamentoFeiras,
+    monitorAtividades,
+    agendamentoAtividadeFeiras
   );
 };

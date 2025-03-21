@@ -7,7 +7,8 @@ module.exports = (sequelize) => {
   const { Pessoa } = sequelize.models;
   class Monitor extends Pessoa {
     static associate(models) {
-      // Associações aqui se precisar
+      Monitor.hasMany(models.MonitorAtividade, { foreignKey: 'idMonitor' });
+      Monitor.hasMany(models.AgendamentoAtividadeFeira, { foreignKey: 'idMonitor' });
     }
   }
 

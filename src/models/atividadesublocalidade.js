@@ -20,7 +20,14 @@ module.exports = (sequelize, DataTypes) => {
     tipo: DataTypes.STRING,
     duracao: DataTypes.TIME,
     capacidadeVisitante: DataTypes.INTEGER,
-    status: DataTypes.STRING
+    status: DataTypes.STRING,
+    idSublocalidade: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'sublocalidades',
+        key: 'id'
+      }
+    }
   }, {
     sequelize,
     modelName: 'AtividadeSublocalidade',

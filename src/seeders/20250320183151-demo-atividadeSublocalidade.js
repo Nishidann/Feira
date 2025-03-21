@@ -12,6 +12,7 @@ module.exports = {
         duracao: '01:30:00',
         capacidadeVisitante: 200,
         status: 'ocupada',
+        idSublocalidade: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -23,6 +24,7 @@ module.exports = {
         duracao: '03:00:00',
         capacidadeVisitante: 50,
         status: 'ociosa',
+        idSublocalidade: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -34,6 +36,7 @@ module.exports = {
         duracao: '00:45:00',
         capacidadeVisitante: 15,
         status: 'inativa',
+        idSublocalidade: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -45,6 +48,7 @@ module.exports = {
         duracao: '02:00:00',
         capacidadeVisitante: 25,
         status: 'inativa',
+        idSublocalidade: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -56,6 +60,7 @@ module.exports = {
         duracao: '04:00:00',
         capacidadeVisitante: 100,
         status: 'ocupada',
+        idSublocalidade: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       }

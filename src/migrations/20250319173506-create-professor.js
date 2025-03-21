@@ -15,7 +15,7 @@ module.exports = {
       idDepartamento: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: {model: 'departamento' , key: 'id'}
+        references: {model: 'departamentos' , key: 'id'}
       },
       createdAt: {
         allowNull: false,

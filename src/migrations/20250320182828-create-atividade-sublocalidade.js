@@ -30,6 +30,11 @@ module.exports = {
       status: {
         type: Sequelize.ENUM('ocupada', 'ociosa', 'inativa')
       },
+      idSublocalidade: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {model: 'sublocalidades' , key: 'id'}
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
