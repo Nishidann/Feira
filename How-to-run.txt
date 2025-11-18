@@ -1,0 +1,11 @@
+-npm install
+-criar o .env com as variáveis const em index.ts
+-npm run dev
+
+-modificar para typeORM
+
+Duvidas Sobre o Modelo Conceitual/Relacional
+-porque eu preciso de uma AgendamentoFeira relacionado com a feira? Porque AgendamentoAtividadeFeira não contém os campos de AgendamentoFeira?
+-AgendamentoFeira é usado apenas para reutilizar os tempos e datas? 
+-uma Atividade pode ser em uma localidade e sublocalidade ao mesmo tempo?
+-
