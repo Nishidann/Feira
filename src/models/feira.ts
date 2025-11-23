@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { AgendamentoFeira } from "./agendamentoFeira";
+import { Atividade } from "./atividade";
 
 @Entity({ name: "feira" })
 export class Feira {
@@ -7,7 +9,13 @@ export class Feira {
 
     @Column({ length: 150 })
     nome: string;
+
+
+    @OneToMany(() => AgendamentoFeira, (agendamentoFeira) => agendamentoFeira.feira)
+    agendamentoFeira: AgendamentoFeira[]
+
+    @OneToMany(() => Atividade, (atividade) => atividade.feira)
+    atividade: Atividade[]
 }
 
 export default Feira;
-

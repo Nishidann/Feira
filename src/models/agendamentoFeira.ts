@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-// import Feira from "./feira";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
+import { AgendamentoAtividadeFeira } from "./agendamentoAtividadeFeira";
+import { Feira } from "./feira";
 
 export enum Turno {
     MANHA = "MANHA",
@@ -23,6 +24,11 @@ export class AgendamentoFeira {
     })
     turno: Turno;
 
-    // @ManyToOne(() => Feira)
-    // assignee: Feira
+    @ManyToOne(() => Feira, (feira) => feira.agendamentoFeira)
+    feira: Feira
+
+    @OneToMany(() => AgendamentoAtividadeFeira, (agendamentoAtividadeFeira) => agendamentoAtividadeFeira.agendamentoFeira)
+    agendamentoAtividadeFeira: AgendamentoAtividadeFeira[]
 }
+
+export default AgendamentoFeira;
