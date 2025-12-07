@@ -3,8 +3,12 @@ dotenv.config();
 
 import { AppDataSource } from "./data-source";
 import * as express from "express";
+import routes from "./routes/routes";
 
 const app = express();
+app.use(express.json())
+app.use(routes)
+
 const PORT = parseInt(process.env.PORT) // definir variável de ambiente PORT em .env na raíz do projeto
 
 AppDataSource.initialize().then(async () => {
