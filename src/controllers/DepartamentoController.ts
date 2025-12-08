@@ -22,9 +22,9 @@ export class DepartamentoController{
         res.status(200).json({ departamentos })
     }
 
-    async obterPorId(req: Request<{ id: number }>, res: Response): Promise<void>{
+    async obterPorId(req: Request, res: Response): Promise<void>{
         const { id } = req.params
-        const departamento = await this.departamentoService.obterPorId(id)
+        const departamento = await this.departamentoService.obterPorId(Number(id))
 
         res.status(200).json({ departamento })
     }

@@ -9,7 +9,7 @@ sublocalidadeRouter.post("/sublocalidades", (req: Request<{}, {}, SublocalidadeD
     sublocalidadeController.criar(req, res)
 })
 
-sublocalidadeRouter.get("/sublocalidades/:id", (req: Request<{ id: number }>, res: Response) => {
+sublocalidadeRouter.get("/sublocalidades/:id", (req: Request, res: Response) => {
     sublocalidadeController.obterPorId(req, res)
 })
 

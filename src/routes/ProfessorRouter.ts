@@ -9,7 +9,7 @@ professorRouter.post("/professores", (req: Request<{}, {}, ProfessorDTO>, res: R
     professorController.criar(req, res)
 })
 
-professorRouter.get("/professores/:id", (req: Request<{ id: number }>, res: Response) => {
+professorRouter.get("/professores/:id", (req: Request, res: Response) => {
     professorController.obterPorId(req, res)
 })
 

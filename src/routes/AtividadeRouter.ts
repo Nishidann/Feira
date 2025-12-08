@@ -9,7 +9,7 @@ atividadeRouter.post("/atividades", (req: Request<{}, {}, AtividadeDTO>, res: Re
     atividadeController.criar(req, res)
 })
 
-atividadeRouter.get("/atividades/:id", (req: Request<{ id: number }>, res: Response) => {
+atividadeRouter.get("/atividades/:id", (req: Request, res: Response) => {
     atividadeController.obterPorId(req, res)
 })
 

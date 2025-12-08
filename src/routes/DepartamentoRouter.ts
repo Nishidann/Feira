@@ -9,7 +9,7 @@ departamentoRouter.post("/departamentos", (req: Request<{}, {}, DepartamentoDTO>
     departamentoController.criar(req, res)
 })
 
-departamentoRouter.get("/departamentos/:id", (req: Request<{ id: number }>, res: Response) => {
+departamentoRouter.get("/departamentos/:id", (req: Request, res: Response) => {
     departamentoController.obterPorId(req, res)
 })
 

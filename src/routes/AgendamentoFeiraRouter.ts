@@ -9,7 +9,7 @@ agendamentoFeiraRouter.post("/agendamentos/feira", (req: Request<{}, {}, Agendam
     agendamentoFeiraController.criar(req, res)
 })
 
-agendamentoFeiraRouter.get("/agendamentos/feira/:id", (req: Request<{ id: number }>, res: Response) => {
+agendamentoFeiraRouter.get("/agendamentos/feira/:id", (req: Request, res: Response) => {
     agendamentoFeiraController.obterPorId(req, res)
 })
 

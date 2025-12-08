@@ -9,7 +9,7 @@ feiraRouter.post("/feiras", (req: Request<{}, {}, FeiraDTO>, res: Response) => {
     feiraController.criar(req, res)
 })
 
-feiraRouter.get("/feiras/:id", (req: Request<{ id: number }>, res: Response) => {
+feiraRouter.get("/feiras/:id", (req: Request, res: Response) => {
     feiraController.obterPorId(req, res)
 })
 

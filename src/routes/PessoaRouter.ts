@@ -9,7 +9,7 @@ pessoaRouter.post("/pessoas", (req: Request<{}, {}, PessoaDTO>, res: Response) =
     pessoaController.criar(req, res)
 })
 
-pessoaRouter.get("/pessoas/:id", (req: Request<{ id: number }>, res: Response) => {
+pessoaRouter.get("/pessoas/:id", (req: Request, res: Response) => {
     pessoaController.obterPorId(req, res)
 })
 

@@ -22,9 +22,9 @@ export class SublocalidadeController{
         res.status(200).json({ sublocalidades })
     }
 
-    async obterPorId(req: Request<{ id: number }>, res: Response): Promise<void>{
+    async obterPorId(req: Request, res: Response): Promise<void>{
         const { id } = req.params
-        const sublocalidade = await this.sublocalidadeService.obterPorId(id)
+        const sublocalidade = await this.sublocalidadeService.obterPorId(Number(id))
 
         res.status(200).json({ sublocalidade })
     }

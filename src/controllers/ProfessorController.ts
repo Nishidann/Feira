@@ -22,9 +22,9 @@ export class ProfessorController{
         res.status(200).json({ professores })
     }
 
-    async obterPorId(req: Request<{ id: number }>, res: Response): Promise<void>{
+    async obterPorId(req: Request, res: Response): Promise<void>{
         const { id } = req.params
-        const professor = await this.professorService.obterPorId(id)
+        const professor = await this.professorService.obterPorId(Number(id))
 
         res.status(200).json({ professor })
     }

@@ -22,9 +22,9 @@ export class AgendamentoFeiraController{
         res.status(200).json({ agendamentos })
     }
 
-    async obterPorId(req: Request<{ id: number }>, res: Response): Promise<void>{
+    async obterPorId(req: Request, res: Response): Promise<void>{
         const { id } = req.params
-        const agendamento = await this.agendamentoFeiraService.obterPorId(id)
+        const agendamento = await this.agendamentoFeiraService.obterPorId(Number(id))
 
         res.status(200).json({ agendamento })
     }

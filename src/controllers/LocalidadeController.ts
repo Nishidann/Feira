@@ -22,9 +22,9 @@ export class LocalidadeController{
         res.status(200).json({ localidades })
     }
 
-    async obterPorId(req: Request<{ id: number }>, res: Response): Promise<void>{
+    async obterPorId(req: Request, res: Response): Promise<void>{
         const { id } = req.params
-        const localidade = await this.localidadeService.obterPorId(id)
+        const localidade = await this.localidadeService.obterPorId(Number(id))
 
         res.status(200).json({ localidade })
     }

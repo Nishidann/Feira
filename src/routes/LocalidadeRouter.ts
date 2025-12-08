@@ -9,7 +9,7 @@ localidadeRouter.post("/localidades", (req: Request<{}, {}, LocalidadeDTO>, res:
     localidadeController.criar(req, res)
 })
 
-localidadeRouter.get("/localidades/:id", (req: Request<{ id: number }>, res: Response) => {
+localidadeRouter.get("/localidades/:id", (req: Request, res: Response) => {
     localidadeController.obterPorId(req, res)
 })
 

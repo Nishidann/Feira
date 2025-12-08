@@ -22,9 +22,9 @@ export class PessoaController{
         res.status(200).json({ pessoas })
     }
 
-    async obterPorId(req: Request<{ id: number }>, res: Response): Promise<void>{
+    async obterPorId(req: Request, res: Response): Promise<void>{
         const { id } = req.params
-        const pessoa = await this.pessoaService.obterPorId(id)
+        const pessoa = await this.pessoaService.obterPorId(Number(id))
 
         res.status(200).json({ pessoa })
     }

@@ -22,9 +22,9 @@ export class MonitorAtividadeController{
         res.status(200).json({ monitorAtividades })
     }
 
-    async obterPorId(req: Request<{ id: number }>, res: Response): Promise<void>{
+    async obterPorId(req: Request, res: Response): Promise<void>{
         const { id } = req.params
-        const monitorAtividade = await this.monitorAtividadeService.obterPorId(id)
+        const monitorAtividade = await this.monitorAtividadeService.obterPorId(Number(id))
 
         res.status(200).json({ monitorAtividade })
     }

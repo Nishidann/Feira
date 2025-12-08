@@ -22,9 +22,9 @@ export class FeiraController{
         res.status(200).json({ feiras })
     }
 
-    async obterPorId(req: Request<{ id: number }>, res: Response): Promise<void>{
+    async obterPorId(req: Request, res: Response): Promise<void>{
         const { id } = req.params
-        const feira = await this.feiraService.obterPorId(id)
+        const feira = await this.feiraService.obterPorId(Number(id))
 
         res.status(200).json({ feira })
     }

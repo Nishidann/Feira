@@ -9,7 +9,7 @@ monitorAtividadeRouter.post("/monitores/atividade", (req: Request<{}, {}, Monito
     monitorAtividadeController.criar(req, res)
 })
 
-monitorAtividadeRouter.get("/monitores/atividade/:id", (req: Request<{ id: number }>, res: Response) => {
+monitorAtividadeRouter.get("/monitores/atividade/:id", (req: Request, res: Response) => {
     monitorAtividadeController.obterPorId(req, res)
 })
 
