@@ -2,27 +2,35 @@ import { Request, Response } from "express";
 import { FeiraDTO } from "../dtos/FeiraDTO"
 import { FeiraService } from "../services/FeiraService";
 
-export class FeiraController{
+export class FeiraController {
 
     private feiraService: FeiraService
 
-    constructor(){
+    constructor() {
         this.feiraService = new FeiraService()
     }
 
-    async criar(req: Request<{}, {}, FeiraDTO>, res: Response): Promise<void>{
-        const feira = await this.feiraService.criar(req.body)
-
-        res.status(201).json({ mensagem: `${feira.nome} criada` })
+    async criar(req: Request<{}, {}, FeiraDTO>, res: Response): Promise<void> {
+        try {
+            const feira = await this.feiraService.criar(req.body)
+            res.status(201).json({ mensagem: `${feira.nome} criada` })
+        }
+        catch (error) {
+            if (error.code == 23505) {
+                res.status(409).json({
+                    message: 'Email ou RG já cadastrado!',
+                });
+            }
+        }
     }
 
-    async obterTodos(_req: Request, res: Response): Promise<void>{
+    async obterTodos(_req: Request, res: Response): Promise<void> {
         const feiras = await this.feiraService.obterTodos()
 
         res.status(200).json({ feiras })
     }
 
-    async obterPorId(req: Request, res: Response): Promise<void>{
+    async obterPorId(req: Request, res: Response): Promise<void> {
         const { id } = req.params
         const feira = await this.feiraService.obterPorId(Number(id))
 

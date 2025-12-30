@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { PessoaService } from "../services/PessoaService";
 import { PessoaDTO } from "../dtos/PessoaDTO";
-import { error } from "console";
 
 export class PessoaController {
 
@@ -17,10 +16,10 @@ export class PessoaController {
 
             res.status(201).json({ mensagem: `Usuário ${pessoa.nome} criado` })
         }
-        catch (error: any) {
-            if (error = 409) {
+        catch (error) {
+            if (error.code == 23505) {
                 res.status(409).json({
-                    message: 'Email ou RG já cadastrado!',
+                    message: 'Erro de chave duplicada!',
                 });
             }
         }
@@ -34,9 +33,9 @@ export class PessoaController {
             }
             res.status(200).json({ pessoas })
         }
-        catch (error: any) {
-            res.status(404).json({
-                message: 'Chave duplicada encontrada!',
+        catch (error) {
+            res.status(500).json({
+                message: 'Erro ao buscar pessoas!',
             });
         }
     }
@@ -45,10 +44,13 @@ export class PessoaController {
         try {
             const { id } = req.params
             const pessoa = await this.pessoaService.obterPorId(Number(id))
-            console.log(error);
+
+            if (!pessoa) {
+                throw new Error();
+            }
             res.status(200).json({ pessoa })
         }
-        catch (error: any) {
+        catch (error) {
             res.status(404).json({
                 message: 'Pessoa não encontrada!',
             });
@@ -61,16 +63,16 @@ export class PessoaController {
             const pessoa = await this.pessoaService.obterPorId(Number(id))
             await this.pessoaService.alterarPorId(Number(id), dadosAtualizados);
             res.status(200).json({ pessoa });
-        } catch (error: any) {
-            console.log(error);
-            if (error = 404) {
+        } catch (error) {
+            console.log(error.name);
+            if (error.name === "EntityNotFoundError") {
                 res.status(404).json({
                     message: 'Pessoa não encontrada!',
                 });
             }
-            else if (error.code = 409) {
+            else if (error.code == 23505) {
                 res.status(409).json({
-                    message: 'Chave duplicada encontrada!',
+                    message: 'Erro de chave duplicada!',
                 });
             } else {
                 res.status(500).json({
@@ -88,7 +90,7 @@ export class PessoaController {
             }
             res.status(200).json({ pessoa })
         }
-        catch (error: any) {
+        catch (error) {
             res.status(404).json({
                 message: 'Pessoa não encontrada!',
             });

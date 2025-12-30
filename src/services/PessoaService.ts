@@ -29,11 +29,7 @@ export class PessoaService {
     }
 
     async obterPorId(id: number): Promise<Pessoa> {
-        const pessoa = await this.entityManager.getRepository(Pessoa).findOneBy({ id });
-        if (!pessoa) {
-            throw new Error('404');
-        }
-        return pessoa;
+        return await this.entityManager.getRepository(Pessoa).findOneByOrFail({ id });
     }
 
     async alterarPorId(id: number, dto: Partial<PessoaDTO>): Promise<Pessoa> {
@@ -44,7 +40,7 @@ export class PessoaService {
 
     async deletarPorId(id: number): Promise<Pessoa> {
         const pessoa = await this.obterPorId(id);
-        await this.entityManager.getRepository(Pessoa).delete({ id });
+        await this.entityManager.getRepository(Pessoa).softDelete({ id });
         return pessoa;
     }
 }

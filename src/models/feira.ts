@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, DeleteDateColumn } from "typeorm";
 import { AgendamentoFeira } from "./agendamentoFeira";
 import { Atividade } from "./atividade";
 
@@ -16,6 +16,9 @@ export class Feira {
 
     @OneToMany(() => Atividade, (atividade) => atividade.feira)
     atividade: Atividade[]
+
+    @DeleteDateColumn({ name: "deleted_at", type: "timestamp", nullable: true })
+    deletedAt?: Date;
 }
 
 export default Feira;

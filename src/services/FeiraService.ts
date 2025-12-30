@@ -7,23 +7,23 @@ import { FeiraDTO } from "../dtos/FeiraDTO"
 export class FeiraService {
 
     private entityManager: EntityManager
-               
-    constructor(){
+
+    constructor() {
         this.entityManager = AppDataSource.manager
     }
 
-    async criar(dto: FeiraDTO): Promise<Feira>{
+    async criar(dto: FeiraDTO): Promise<Feira> {
         const feira = new Feira()
         feira.nome = dto.nome
 
         return await this.entityManager.getRepository(Feira).save(feira)
     }
 
-    async obterTodos(): Promise<Feira[]>{
+    async obterTodos(): Promise<Feira[]> {
         return await this.entityManager.getRepository(Feira).find()
     }
 
-    async obterPorId(id: number): Promise<Feira>{
-        return await this.entityManager.getRepository(Feira).findOneBy({ id })
+    async obterPorId(id: number): Promise<Feira> {
+        return await this.entityManager.getRepository(Feira).findOneByOrFail({ id })
     }
 }

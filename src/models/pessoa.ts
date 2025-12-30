@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Index } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Index, DeleteDateColumn } from "typeorm";
 import { MonitorAtividade } from "./monitorAtividade";
 
 export enum TipoPessoa {
@@ -36,6 +36,9 @@ export class Pessoa {
 
     @OneToMany(() => MonitorAtividade, (monitorAtividade) => monitorAtividade.pessoa)
     monitorAtividade: MonitorAtividade[]
+
+    @DeleteDateColumn({ name: "deleted_at", type: "timestamp", nullable: true })
+    deletedAt?: Date;
 }
 
 export default Pessoa;
