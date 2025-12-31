@@ -26,4 +26,16 @@ export class FeiraService {
     async obterPorId(id: number): Promise<Feira> {
         return await this.entityManager.getRepository(Feira).findOneByOrFail({ id })
     }
+
+    async alterarPorId(id: number, dto: Partial<FeiraDTO>): Promise<Feira> {
+        const feira = await this.obterPorId(id);
+        Object.assign(feira, dto);
+        return await this.entityManager.getRepository(Feira).save(feira);
+    }
+
+    async deletarPorId(id: number): Promise<Feira> {
+        const feira = await this.obterPorId(id);
+        await this.entityManager.getRepository(Feira).softDelete({ id });
+        return feira;
+    }
 }

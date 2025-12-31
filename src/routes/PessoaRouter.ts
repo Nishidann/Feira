@@ -43,8 +43,6 @@ const pessoaController = new PessoaController()
  *     responses:
  *       201:
  *         description: Usuário criado
- *       404:
- *         description: Pessoa não encontrada
  *       409:
  *         description: Chave duplicada
  *       500:

@@ -33,7 +33,7 @@ export class PessoaService {
     }
 
     async alterarPorId(id: number, dto: Partial<PessoaDTO>): Promise<Pessoa> {
-        const pessoa = await this.obterPorId(id); // reutiliza a lógica e já lança erro se não encontrar
+        const pessoa = await this.obterPorId(id);
         Object.assign(pessoa, dto);
         return await this.entityManager.getRepository(Pessoa).save(pessoa);
     }
