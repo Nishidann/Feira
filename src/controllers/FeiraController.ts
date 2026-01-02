@@ -22,6 +22,9 @@ export class FeiraController {
                     message: 'Erro de chave duplicada!',
                 });
             }
+            else {
+                res.status(500).json({ message: 'Erro interno' });
+            }
         }
     }
 
@@ -51,9 +54,14 @@ export class FeiraController {
             res.status(200).json({ feira })
         }
         catch (error) {
-            res.status(404).json({
-                message: 'Feira não encontrada!',
-            });
+            if (error.name === "EntityNotFoundError") {
+                res.status(404).json({
+                    message: 'Feira não encontrada!',
+                });
+            }
+            else {
+                res.status(500).json({ message: 'Erro interno' });
+            }
         }
     }
 
@@ -68,7 +76,7 @@ export class FeiraController {
             console.log(error.name);
             if (error.name === "EntityNotFoundError") {
                 res.status(404).json({
-                    message: 'feira não encontrada!',
+                    message: 'Feira não encontrada!',
                 });
             }
             else if (error.code == 23505) {
@@ -92,9 +100,14 @@ export class FeiraController {
             res.status(200).json({})
         }
         catch (error) {
-            res.status(404).json({
-                message: 'Feira não encontrada!',
-            });
+            if (error.name === "EntityNotFoundError") {
+                res.status(404).json({
+                    message: 'Feira não encontrada!',
+                });
+            }
+            else {
+                res.status(500).json({ message: 'Erro interno' });
+            }
         }
     }
 }

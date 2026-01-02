@@ -22,6 +22,9 @@ export class DepartamentoController {
                     message: 'Erro de chave duplicada!',
                 });
             }
+            else {
+                res.status(500).json({ message: 'Erro interno' });
+            }
         }
     }
 
@@ -51,9 +54,14 @@ export class DepartamentoController {
             res.status(200).json({ departamento })
         }
         catch (error) {
-            res.status(404).json({
-                message: 'Departamento não encontrado!',
-            });
+            if (error.name === "EntityNotFoundError") {
+                res.status(404).json({
+                    message: 'Departamento não encontrado!',
+                });
+            }
+            else {
+                res.status(500).json({ message: 'Erro interno' });
+            }
         }
     }
 
@@ -93,9 +101,14 @@ export class DepartamentoController {
             res.status(200).json({ departamento })
         }
         catch (error) {
-            res.status(404).json({
-                message: 'Departamento não encontrado!',
-            });
+            if (error.name === "EntityNotFoundError") {
+                res.status(404).json({
+                    message: 'Departamento não encontrado!',
+                });
+            }
+            else {
+                res.status(500).json({ message: 'Erro interno' });
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, DeleteDateColumn } from "typeorm";
 import { Departamento } from "./departamento";
 import { Atividade } from "./atividade";
 
@@ -16,6 +16,9 @@ export class Professor {
 
     @OneToMany(() => Atividade, (atividade) => atividade.professor)
     atividade: Atividade[]
+
+    @DeleteDateColumn({ name: "deleted_at", type: "timestamp", nullable: true })
+    deletedAt?: Date;
 }
 
 export default Professor;

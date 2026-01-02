@@ -8,26 +8,43 @@ import Departamento from "../models/departamento"
 export class ProfessorService {
 
     private entityManager: EntityManager
-                               
-    constructor(){
+
+    constructor() {
         this.entityManager = AppDataSource.manager
     }
 
-    async criar(dto: ProfessorDTO): Promise<Professor>{
+    async criar(dto: ProfessorDTO): Promise<Professor> {
         const professor = new Professor()
-        const departamento = await this.entityManager.getRepository(Departamento).findOneBy({ id: dto.idDepartamento })
+        console.log(dto.idDepartamento);
+        const departamento = await this.entityManager.getRepository(Departamento).findOneByOrFail({ id: dto.idDepartamento })
 
         professor.nome = dto.nome
         professor.departamento = departamento
-        
+
         return await this.entityManager.getRepository(Professor).save(professor)
     }
 
-    async obterTodos(): Promise<Professor[]>{
-        return await this.entityManager.getRepository(Professor).find()
+    async obterTodos(): Promise<Professor[]> {
+        return await this.entityManager.getRepository(Professor).find({
+            relations: {
+                departamento: true
+            }
+        })
     }
 
-    async obterPorId(id: number): Promise<Professor>{
-        return await this.entityManager.getRepository(Professor).findOneBy({ id })
+    async obterPorId(id: number): Promise<Professor> {
+        return await this.entityManager.getRepository(Professor).findOneByOrFail({ id })
+    }
+
+    async alterarPorId(id: number, dto: Partial<ProfessorDTO>): Promise<Professor> {
+        const professor = await this.obterPorId(id);
+        Object.assign(professor, dto);
+        return await this.entityManager.getRepository(Professor).save(professor);
+    }
+
+    async deletarPorId(id: number): Promise<Professor> {
+        const professor = await this.obterPorId(id);
+        await this.entityManager.getRepository(Professor).softDelete({ id });
+        return professor;
     }
 }

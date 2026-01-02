@@ -22,6 +22,9 @@ export class PessoaController {
                     message: 'Erro de chave duplicada!',
                 });
             }
+            else {
+                res.status(500).json({ message: 'Erro interno' });
+            }
         }
     }
 
@@ -51,9 +54,14 @@ export class PessoaController {
             res.status(200).json({ pessoa })
         }
         catch (error) {
-            res.status(404).json({
-                message: 'Pessoa não encontrada!',
-            });
+            if (error.name === "EntityNotFoundError") {
+                res.status(404).json({
+                    message: 'Pessoa não encontrada!',
+                });
+            }
+            else {
+                res.status(500).json({ message: 'Erro interno' });
+            }
         }
     }
     async alterarPorId(req: Request, res: Response): Promise<void> {
@@ -91,9 +99,14 @@ export class PessoaController {
             res.status(200).json({ pessoa })
         }
         catch (error) {
-            res.status(404).json({
-                message: 'Pessoa não encontrada!',
-            });
+            if (error.name === "EntityNotFoundError") {
+                res.status(404).json({
+                    message: 'Pessoa não encontrada!',
+                });
+            }
+            else {
+                res.status(500).json({ message: 'Erro interno' });
+            }
         }
     }
 }
