@@ -9,12 +9,12 @@ import Pessoa from "../models/pessoa"
 export class MonitorAtividadeService {
 
     private entityManager: EntityManager
-                       
-    constructor(){
+
+    constructor() {
         this.entityManager = AppDataSource.manager
     }
 
-    async criar(dto: MonitorAtividadeDTO): Promise<MonitorAtividade>{
+    async criar(dto: MonitorAtividadeDTO): Promise<MonitorAtividade> {
         const monitorAtividade = new MonitorAtividade()
         const agendamentoAtividadeFeira = await this.entityManager.getRepository(AgendamentoAtividadeFeira).findOneBy({ id: dto.idAgendamentoAtividadeFeira })
         const pessoa = await this.entityManager.getRepository(Pessoa).findOneBy({ id: dto.idPessoa })
@@ -27,11 +27,23 @@ export class MonitorAtividadeService {
         return await this.entityManager.getRepository(MonitorAtividade).save(monitorAtividade)
     }
 
-    async obterTodos(): Promise<MonitorAtividade[]>{
+    async obterTodos(): Promise<MonitorAtividade[]> {
         return await this.entityManager.getRepository(MonitorAtividade).find()
     }
 
-    async obterPorId(id: number): Promise<MonitorAtividade>{
-        return await this.entityManager.getRepository(MonitorAtividade).findOneBy({ id })
+    async obterPorId(id: number): Promise<MonitorAtividade> {
+        return await this.entityManager.getRepository(MonitorAtividade).findOneByOrFail({ id })
+    }
+
+    async alterarPorId(id: number, dto: Partial<MonitorAtividadeDTO>): Promise<MonitorAtividade> {
+        const monitorAtividade = await this.obterPorId(id);
+        Object.assign(monitorAtividade, dto);
+        return await this.entityManager.getRepository(MonitorAtividade).save(monitorAtividade);
+    }
+
+    async deletarPorId(id: number): Promise<MonitorAtividade> {
+        const monitorAtividade = await this.obterPorId(id);
+        await this.entityManager.getRepository(MonitorAtividade).softDelete({ id });
+        return monitorAtividade;
     }
 }

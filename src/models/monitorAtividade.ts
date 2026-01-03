@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, Column, DeleteDateColumn } from "typeorm";
 import { AgendamentoAtividadeFeira } from "./agendamentoAtividadeFeira";
 import { Pessoa } from "./pessoa";
 
@@ -19,6 +19,9 @@ export class MonitorAtividade {
 
     @ManyToOne(() => Pessoa, (pessoa) => pessoa.monitorAtividade)
     pessoa: Pessoa
+
+    @DeleteDateColumn({ name: "deleted_at", type: "timestamp", nullable: true })
+    deletedAt?: Date;
 }
 
 export default MonitorAtividade;
