@@ -28,11 +28,22 @@ export class MonitorAtividadeService {
     }
 
     async obterTodos(): Promise<MonitorAtividade[]> {
-        return await this.entityManager.getRepository(MonitorAtividade).find()
+        return await this.entityManager.getRepository(MonitorAtividade).find({
+            relations: {
+                agendamentoAtividadeFeira: true,
+                pessoa: true
+            }
+        })
     }
 
     async obterPorId(id: number): Promise<MonitorAtividade> {
-        return await this.entityManager.getRepository(MonitorAtividade).findOneByOrFail({ id })
+        return await this.entityManager.getRepository(MonitorAtividade).findOneOrFail({
+            where: { id: id },
+            relations: {
+                agendamentoAtividadeFeira: true,
+                pessoa: true
+            }
+        })
     }
 
     async alterarPorId(id: number, dto: Partial<MonitorAtividadeDTO>): Promise<MonitorAtividade> {

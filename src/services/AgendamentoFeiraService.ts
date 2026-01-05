@@ -8,27 +8,50 @@ import Feira from "../models/feira";
 export class AgendamentoFeiraService {
 
     private entityManager: EntityManager
-        
-    constructor(){
+
+    constructor() {
         this.entityManager = AppDataSource.manager
     }
 
     async criar(dto: AgendamentoFeiraDTO): Promise<AgendamentoFeira> {
-        const agendamento = new AgendamentoFeira()
-        const feira = await this.entityManager.getRepository(Feira).findOneBy({ id: dto.idFeira })
+        const agendamentoFeira = new AgendamentoFeira()
+        const feira = await this.entityManager.getRepository(Feira).findOneByOrFail({ id: dto.idFeira })
 
-        agendamento.data = dto.data
-        agendamento.turno = dto.turno
-        agendamento.feira = feira
+        agendamentoFeira.data = dto.data
+        agendamentoFeira.turno = dto.turno
+        agendamentoFeira.qtdAlunosSuportados = dto.qtdAlunosSuportados
+        agendamentoFeira.feira = feira
 
-        return await this.entityManager.getRepository(AgendamentoFeira).save(agendamento)
+        return await this.entityManager.getRepository(AgendamentoFeira).save(agendamentoFeira)
     }
 
-    async obterTodos(): Promise<AgendamentoFeira[]>{
-        return await this.entityManager.getRepository(AgendamentoFeira).find()
+    async obterTodos(): Promise<AgendamentoFeira[]> {
+        return await this.entityManager.getRepository(AgendamentoFeira).find({
+            loadRelationIds: true
+        })
     }
-    
-    async obterPorId(id: number): Promise<AgendamentoFeira>{
-        return await this.entityManager.getRepository(AgendamentoFeira).findOneBy({ id })
+
+    async obterPorId(id: number): Promise<AgendamentoFeira> {
+        return await this.entityManager.getRepository(AgendamentoFeira).findOneOrFail({
+            where: { id: id },
+            relations: {
+                feira: true
+            }
+        })
+    }
+    async alterarPorId(id: number, dto: Partial<AgendamentoFeiraDTO>): Promise<AgendamentoFeira> {
+        const agendamentoFeira = await this.obterPorId(id);
+        const feira = await this.entityManager.getRepository(Feira).findOneByOrFail({ id: dto.idFeira })
+
+        agendamentoFeira.feira = feira
+
+        Object.assign(agendamentoFeira, dto);
+        return await this.entityManager.getRepository(AgendamentoFeira).save(agendamentoFeira);
+    }
+
+    async deletarPorId(id: number): Promise<AgendamentoFeira> {
+        const agendamentoFeira = await this.obterPorId(id);
+        await this.entityManager.getRepository(AgendamentoFeira).softDelete({ id });
+        return agendamentoFeira;
     }
 }

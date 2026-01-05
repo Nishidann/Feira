@@ -23,7 +23,9 @@ export class PessoaController {
                 });
             }
             else {
-                res.status(500).json({ message: 'Erro interno' });
+                res.status(500).json({
+                    message: 'Erro do servidor!'
+                });
             }
         }
     }
@@ -38,7 +40,7 @@ export class PessoaController {
         }
         catch (error) {
             res.status(500).json({
-                message: 'Erro ao buscar pessoas!',
+                message: 'Erro do servidor!',
             });
         }
     }
@@ -60,14 +62,16 @@ export class PessoaController {
                 });
             }
             else {
-                res.status(500).json({ message: 'Erro interno' });
+                res.status(500).json({
+                    message: 'Erro do servidor!',
+                });
             }
         }
     }
     async alterarPorId(req: Request, res: Response): Promise<void> {
         try {
             const { id } = req.params;
-            const dadosAtualizados = req.body; // Novos dados da pessoa
+            const dadosAtualizados = req.body;
             const pessoa = await this.pessoaService.obterPorId(Number(id))
             await this.pessoaService.alterarPorId(Number(id), dadosAtualizados);
             res.status(200).json({ pessoa });
@@ -105,7 +109,9 @@ export class PessoaController {
                 });
             }
             else {
-                res.status(500).json({ message: 'Erro interno' });
+                res.status(500).json({
+                    message: 'Erro do servidor!'
+                });
             }
         }
     }

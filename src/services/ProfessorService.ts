@@ -33,7 +33,12 @@ export class ProfessorService {
     }
 
     async obterPorId(id: number): Promise<Professor> {
-        return await this.entityManager.getRepository(Professor).findOneByOrFail({ id })
+        return await this.entityManager.getRepository(Professor).findOneOrFail({
+            where: { id: id },
+            relations: {
+                departamento: true
+            }
+        });
     }
 
     async alterarPorId(id: number, dto: Partial<ProfessorDTO>): Promise<Professor> {
