@@ -10,13 +10,13 @@ export class AtividadeService {
 
     private entityManager: EntityManager
 
-    constructor(){
+    constructor() {
         this.entityManager = AppDataSource.manager
     }
 
-    async criar(dto: AtividadeDTO): Promise<Atividade>{
-        const feira = await this.entityManager.getRepository(Feira).findOneBy({ id: dto.idFeira })
-        const professor = await this.entityManager.getRepository(Professor).findOneBy({ id: dto.idProfessor })
+    async criar(dto: AtividadeDTO): Promise<Atividade> {
+        const feira = await this.entityManager.getRepository(Feira).findOneByOrFail({ id: dto.idFeira })
+        const professor = await this.entityManager.getRepository(Professor).findOneByOrFail({ id: dto.idProfessor })
         const sublocalidade = await this.entityManager.getRepository(Sublocalidade).findOneBy({ id: dto.idSublocalidade })
 
         const atividade = new Atividade()
@@ -25,22 +25,53 @@ export class AtividadeService {
         atividade.qtdMonitores = dto.qtdMonitores
         atividade.tipoAtividade = dto.tipoAtividade
         atividade.tipo = dto.tipo
-        atividade.duracao_da_secao = dto.duracaoSecao
-        atividade.capacidade_de_visitantes = dto.capacidadeVisitantes
+        atividade.duracaoSecao = dto.duracaoSecao
+        atividade.capacidadeVisitantes = dto.capacidadeVisitantes
         atividade.status = dto.status
         atividade.feira = feira
         atividade.professor = professor
         atividade.sublocalidade = sublocalidade
-        atividade.localidade = sublocalidade.localidade
+        //essa parte ta dando erro
+        // atividade.localidade = sublocalidade.localidade
 
         return await this.entityManager.getRepository(Atividade).save(atividade)
     }
 
-    async obterTodos(): Promise<Atividade[]>{
-        return await this.entityManager.getRepository(Atividade).find()
+    async obterTodos(): Promise<Atividade[]> {
+        return await this.entityManager.getRepository(Atividade).find({
+            loadRelationIds: true
+        })
     }
 
-    async obterPorId(id: number): Promise<Atividade>{
-        return await this.entityManager.getRepository(Atividade).findOneBy({ id })
+    async obterPorId(id: number): Promise<Atividade> {
+        return await this.entityManager.getRepository(Atividade).findOneOrFail({
+            where: { id: id },
+            relations: {
+                professor: true,
+                sublocalidade: true,
+                feira: true
+            }
+        })
+    }
+
+    async alterarPorId(id: number, dto: Partial<AtividadeDTO>): Promise<Atividade> {
+
+        const atividade = await this.obterPorId(id);
+        const feira = await this.entityManager.getRepository(Feira).findOneByOrFail({ id: dto.idFeira })
+        const professor = await this.entityManager.getRepository(Professor).findOneByOrFail({ id: dto.idProfessor })
+        const sublocalidade = await this.entityManager.getRepository(Sublocalidade).findOneBy({ id: dto.idSublocalidade })
+
+        atividade.feira = feira;
+        atividade.professor = professor;
+        atividade.sublocalidade = sublocalidade;
+
+        Object.assign(atividade, dto);
+        return await this.entityManager.getRepository(Atividade).save(atividade);
+    }
+
+    async deletarPorId(id: number): Promise<Atividade> {
+        const atividade = await this.obterPorId(id);
+        await this.entityManager.getRepository(Atividade).softDelete({ id });
+        return atividade;
     }
 }

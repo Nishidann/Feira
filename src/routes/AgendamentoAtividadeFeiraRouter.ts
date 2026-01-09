@@ -65,6 +65,8 @@ agendamentoAtividadeFeiraRouter.post("/agendamentos/atividades/feira", (req: Req
  *         description: Agendamento da atvidade da feira encontrado
  *       404:
  *         description: Agendamento da atvidade da feira não encontrado
+ *       500:
+ *         description: Erro no servidor
  */
 agendamentoAtividadeFeiraRouter.get("/agendamentos/atividades/feira/:id", (req: Request, res: Response) => {
     agendamentoAtividadeFeiraController.obterPorId(req, res)
@@ -79,6 +81,8 @@ agendamentoAtividadeFeiraRouter.get("/agendamentos/atividades/feira/:id", (req: 
  *     responses:
  *       200:
  *         description: Lista de agendamentos de atvidade referentes a feira
+ *       500:
+ *         description: Erro no servidor
  */
 agendamentoAtividadeFeiraRouter.get("/agendamentos/atividades/feira", (req: Request, res: Response) => {
     agendamentoAtividadeFeiraController.obterTodos(req, res)
@@ -120,6 +124,8 @@ agendamentoAtividadeFeiraRouter.get("/agendamentos/atividades/feira", (req: Requ
  *         description: Atividade ou Agendamento da feira não encontrado
  *       409:
  *         description: Chave duplicada
+ *       500:
+ *         description: Erro no servidor
  */
 agendamentoAtividadeFeiraRouter.put("/agendamentos/atividades/feira/:id", (req: Request, res: Response) => {
     agendamentoAtividadeFeiraController.alterarPorId(req, res)
@@ -143,6 +149,8 @@ agendamentoAtividadeFeiraRouter.put("/agendamentos/atividades/feira/:id", (req: 
  *         description: Agendamento de atividade da feira deletado
  *       404:
  *         description: Agendamento de atividade da feira não encontrado
+ *       500:
+ *         description: Erro no servidor
  */
 agendamentoAtividadeFeiraRouter.delete("/agendamentos/atividades/feira/:id", (req: Request, res: Response) => {
     agendamentoAtividadeFeiraController.deletarPorId(req, res)

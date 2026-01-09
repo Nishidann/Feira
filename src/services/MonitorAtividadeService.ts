@@ -16,8 +16,8 @@ export class MonitorAtividadeService {
 
     async criar(dto: MonitorAtividadeDTO): Promise<MonitorAtividade> {
         const monitorAtividade = new MonitorAtividade()
-        const agendamentoAtividadeFeira = await this.entityManager.getRepository(AgendamentoAtividadeFeira).findOneBy({ id: dto.idAgendamentoAtividadeFeira })
-        const pessoa = await this.entityManager.getRepository(Pessoa).findOneBy({ id: dto.idPessoa })
+        const agendamentoAtividadeFeira = await this.entityManager.getRepository(AgendamentoAtividadeFeira).findOneByOrFail({ id: dto.idAgendamentoAtividadeFeira })
+        const pessoa = await this.entityManager.getRepository(Pessoa).findOneByOrFail({ id: dto.idPessoa })
 
         monitorAtividade.horaEntrada = dto.horaEntrada
         monitorAtividade.horaSaida = dto.horaSaida
