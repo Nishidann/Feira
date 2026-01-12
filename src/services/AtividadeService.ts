@@ -59,7 +59,7 @@ export class AtividadeService {
         const atividade = await this.obterPorId(id);
         const feira = await this.entityManager.getRepository(Feira).findOneByOrFail({ id: dto.idFeira })
         const professor = await this.entityManager.getRepository(Professor).findOneByOrFail({ id: dto.idProfessor })
-        const sublocalidade = await this.entityManager.getRepository(Sublocalidade).findOneBy({ id: dto.idSublocalidade })
+        const sublocalidade = await this.entityManager.getRepository(Sublocalidade).findOneByOrFail({ id: dto.idSublocalidade })
 
         atividade.feira = feira;
         atividade.professor = professor;

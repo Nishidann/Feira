@@ -31,9 +31,6 @@ export class DepartamentoController {
     async obterTodos(_req: Request, res: Response): Promise<void> {
         try {
             const departamentos = await this.departamentoService.obterTodos()
-            if (!departamentos) {
-                throw new Error();
-            }
             res.status(200).json({ departamentos })
         }
         catch (error) {

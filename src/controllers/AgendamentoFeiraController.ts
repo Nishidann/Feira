@@ -59,7 +59,7 @@ export class AgendamentoFeiraController {
         catch (error) {
             if (error.name === "EntityNotFoundError") {
                 res.status(404).json({
-                    message: 'Agendamento da feira não encontrado não encontrada!',
+                    message: 'Agendamento da feira não encontrado!',
                 });
             }
             else {
