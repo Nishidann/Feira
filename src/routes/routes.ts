@@ -9,20 +9,33 @@ import localidadeRouter from "./LocalidadeRouter";
 import monitorAtividadeRouter from "./MonitorAtividadeRouter";
 import pessoaRouter from "./PessoaRouter";
 import sublocalidadeRouter from "./SublocalidadeRouter";
+import authRouter from "./AuthRouter";
+import { roleMiddleware } from "../middlewares/roleMiddleware";
+import { TipoPessoa } from "../models/pessoa";
+import { authMiddleware } from "../middlewares/authMiddleware";
 
 const routes = Router()
 
+routes.use(authRouter);
+routes.use(pessoaRouter);
+
+routes.use(authMiddleware);
+
 routes.use(
+    roleMiddleware([TipoPessoa.MONITOR, TipoPessoa.ORGANIZADOR]),
+    monitorAtividadeRouter
+);
+
+routes.use(
+    roleMiddleware([TipoPessoa.ORGANIZADOR]),
+    departamentoRouter,
+    professorRouter,
+    feiraRouter,
     agendamentoFeiraRouter,
     agendamentoAtividadeFeiraRouter,
     atividadeRouter,
-    departamentoRouter,
-    feiraRouter,
     localidadeRouter,
-    monitorAtividadeRouter,
-    pessoaRouter,
-    professorRouter,
     sublocalidadeRouter
-)
+);
 
 export default routes
