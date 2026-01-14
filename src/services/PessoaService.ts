@@ -2,6 +2,7 @@ import { EntityManager } from "typeorm";
 import Pessoa from "../models/pessoa";
 import { AppDataSource } from "../data-source";
 import { PessoaDTO } from "../dtos/PessoaDTO";
+import * as bcrypt from "bcryptjs";
 
 //fazer validações
 export class PessoaService {
@@ -18,7 +19,7 @@ export class PessoaService {
         pessoa.cpf = dto.cpf
         pessoa.celular = dto.celular
         pessoa.email = dto.email
-        pessoa.senha = dto.senha //criptografar
+        pessoa.senha = await bcrypt.hash(dto.senha, 10);
         pessoa.tipoPessoa = dto.tipoPessoa
 
         return await this.entityManager.getRepository(Pessoa).save(pessoa)
