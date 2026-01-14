@@ -16,8 +16,8 @@ export class MonitorAtividadeService {
 
     async criar(dto: MonitorAtividadeDTO): Promise<MonitorAtividade> {
         const monitorAtividade = new MonitorAtividade()
-        const agendamentoAtividadeFeira = await this.entityManager.getRepository(AgendamentoAtividadeFeira).findOneBy({ id: dto.idAgendamentoAtividadeFeira })
-        const pessoa = await this.entityManager.getRepository(Pessoa).findOneBy({ id: dto.idPessoa })
+        const agendamentoAtividadeFeira = await this.entityManager.getRepository(AgendamentoAtividadeFeira).findOneByOrFail({ id: dto.idAgendamentoAtividadeFeira })
+        const pessoa = await this.entityManager.getRepository(Pessoa).findOneByOrFail({ id: dto.idPessoa })
 
         monitorAtividade.horaEntrada = dto.horaEntrada
         monitorAtividade.horaSaida = dto.horaSaida
@@ -28,11 +28,22 @@ export class MonitorAtividadeService {
     }
 
     async obterTodos(): Promise<MonitorAtividade[]> {
-        return await this.entityManager.getRepository(MonitorAtividade).find()
+        return await this.entityManager.getRepository(MonitorAtividade).find({
+            relations: {
+                agendamentoAtividadeFeira: true,
+                pessoa: true
+            }
+        })
     }
 
     async obterPorId(id: number): Promise<MonitorAtividade> {
-        return await this.entityManager.getRepository(MonitorAtividade).findOneByOrFail({ id })
+        return await this.entityManager.getRepository(MonitorAtividade).findOneOrFail({
+            where: { id: id },
+            relations: {
+                agendamentoAtividadeFeira: true,
+                pessoa: true
+            }
+        })
     }
 
     async alterarPorId(id: number, dto: Partial<MonitorAtividadeDTO>): Promise<MonitorAtividade> {

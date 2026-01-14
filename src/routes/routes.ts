@@ -3,6 +3,7 @@ import departamentoRouter from "./DepartamentoRouter";
 import professorRouter from "./ProfessorRouter";
 import feiraRouter from "./FeiraRouter";
 import agendamentoFeiraRouter from "./AgendamentoFeiraRouter";
+import agendamentoAtividadeFeiraRouter from "./AgendamentoAtividadeFeiraRouter";
 import atividadeRouter from "./AtividadeRouter";
 import localidadeRouter from "./LocalidadeRouter";
 import monitorAtividadeRouter from "./MonitorAtividadeRouter";
@@ -31,6 +32,7 @@ routes.use(
     professorRouter,
     feiraRouter,
     agendamentoFeiraRouter,
+    agendamentoAtividadeFeiraRouter,
     atividadeRouter,
     localidadeRouter,
     sublocalidadeRouter

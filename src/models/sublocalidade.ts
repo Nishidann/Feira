@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, DeleteDateColumn } from "typeorm";
 import { Atividade } from "./atividade";
 import { Localidade } from "./localidade";
 
@@ -19,6 +19,8 @@ export class Sublocalidade {
     @ManyToOne(() => Localidade, (localidade) => localidade.sublocalidade)
     localidade: Localidade
 
+    @DeleteDateColumn({ name: "deleted_at", type: "timestamp", nullable: true })
+    deletedAt?: Date;
 }
 
 export default Sublocalidade;

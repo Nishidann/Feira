@@ -6,7 +6,7 @@ import { MonitorAtividadeController } from "../controllers/MonitorAtividadeContr
  * @swagger
  * tags:
  *   - name: MonitorAtividade
- *     description: Operações relacionadas ao período das atividades do monitor
+ *     description: Operações relacionadas ao Monitor da atividade das atividades do monitor
  */
 
 const monitorAtividadeRouter = Router()
@@ -16,7 +16,7 @@ const monitorAtividadeController = new MonitorAtividadeController()
  * @swagger
  * /monitores/atividade:
  *   post:
- *     summary: Cria um novo período para o monitor em uma atividade 
+ *     summary: Cria um novo Monitor da atividade para o monitor em uma atividade 
  *     tags: [MonitorAtividade]
  *     requestBody:
  *       required: true
@@ -31,9 +31,13 @@ const monitorAtividadeController = new MonitorAtividadeController()
  *               horaSaida:
  *                 type: string
  *                 format: date-time
+ *               idAgendamentoAtividadeFeira:
+ *                 type: integer
+ *               idPessoa:
+ *                 type: integer
  *     responses:
  *       201:
- *         description: Período criado
+ *         description: Monitor da atividade criado
  *       409:
  *         description: Chave duplicada
  *       500:
@@ -47,7 +51,7 @@ monitorAtividadeRouter.post("/monitores/atividade", (req: Request<{}, {}, Monito
  * @swagger
  * /monitores/atividade/{id}:
  *   get:
- *     summary: Retorna um período da atividade
+ *     summary: Retorna um Monitor da atividade da atividade
  *     tags: [MonitorAtividade]
  *     parameters:
  *       - in: path
@@ -58,9 +62,9 @@ monitorAtividadeRouter.post("/monitores/atividade", (req: Request<{}, {}, Monito
  *         description: ID da pessoa
  *     responses:
  *       200:
- *         description: Período encontrado
+ *         description: Monitor da atividade encontrado
  *       404:
- *         description: Período não encontrado
+ *         description: Monitor da atividade não encontrado
  */
 monitorAtividadeRouter.get("/monitores/atividade/:id", (req: Request, res: Response) => {
     monitorAtividadeController.obterPorId(req, res)
@@ -70,11 +74,11 @@ monitorAtividadeRouter.get("/monitores/atividade/:id", (req: Request, res: Respo
  * @swagger
  * /monitores/atividade:
  *   get:
- *     summary: Retorna todos os períodos da atividade
+ *     summary: Retorna todos os Monitores da atividade
  *     tags: [MonitorAtividade]
  *     responses:
  *       200:
- *         description: Lista de períodos
+ *         description: Lista de Monitor da atividades
  */
 monitorAtividadeRouter.get("/monitores/atividade", (req: Request, res: Response) => {
     monitorAtividadeController.obterTodos(req, res)
@@ -84,7 +88,7 @@ monitorAtividadeRouter.get("/monitores/atividade", (req: Request, res: Response)
  * @swagger
  * /monitores/atividade/{id}:
  *   put:
- *     summary: Altera um período pelo ID
+ *     summary: Altera um Monitor da atividade pelo ID
  *     tags: [MonitorAtividade]
  *     parameters:
  *       - in: path
@@ -106,11 +110,15 @@ monitorAtividadeRouter.get("/monitores/atividade", (req: Request, res: Response)
  *               horaSaida:
  *                 type: string
  *                 format: date-time
+ *               idAgendamentoAtividadeFeira:
+ *                 type: integer
+ *               idPessoa:
+ *                 type: integer
  *     responses:
  *       200:
- *         description: Período alterada
+ *         description: Monitor da atividade alterado
  *       404:
- *         description: Período não encontrada
+ *         description: Monitor da atividade não encontrado
  *       409:
  *         description: Chave duplicada
  */
@@ -122,7 +130,7 @@ monitorAtividadeRouter.put("/monitores/atividade/:id", (req: Request, res: Respo
  * @swagger
  * /monitores/atividade/{id}:
  *   delete:
- *     summary: Deleta um período pelo ID
+ *     summary: Deleta um Monitor da atividade pelo ID
  *     tags: [MonitorAtividade]
  *     parameters:
  *       - in: path
@@ -133,9 +141,9 @@ monitorAtividadeRouter.put("/monitores/atividade/:id", (req: Request, res: Respo
  *         description: ID da pessoa
  *     responses:
  *       200:
- *         description: Período deletado
+ *         description: Monitor da atividade deletado
  *       404:
- *         description: Período não encontrado
+ *         description: Monitor da atividade não encontrado
  */
 monitorAtividadeRouter.delete("/monitores/atividade/:id", (req: Request, res: Response) => {
     monitorAtividadeController.deletarPorId(req, res)

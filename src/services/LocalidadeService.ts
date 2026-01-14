@@ -7,25 +7,37 @@ import { LocalidadeDTO } from "../dtos/LocalidadeDTO"
 export class LocalidadeService {
 
     private entityManager: EntityManager
-                   
-    constructor(){
+
+    constructor() {
         this.entityManager = AppDataSource.manager
     }
 
-    async criar(dto: LocalidadeDTO): Promise<Localidade>{
+    async criar(dto: LocalidadeDTO): Promise<Localidade> {
         const localidade = new Localidade()
         localidade.nome = dto.nome
         localidade.descricao = dto.descricao
-        localidade.qtd_salas = dto.qtdSalas
-        
+        localidade.qtdSalas = dto.qtdSalas
+
         return await this.entityManager.getRepository(Localidade).save(localidade)
     }
 
-    async obterTodos(): Promise<Localidade[]>{
+    async obterTodos(): Promise<Localidade[]> {
         return await this.entityManager.getRepository(Localidade).find()
     }
 
-    async obterPorId(id: number): Promise<Localidade>{
-        return await this.entityManager.getRepository(Localidade).findOneBy({ id })
+    async obterPorId(id: number): Promise<Localidade> {
+        return await this.entityManager.getRepository(Localidade).findOneByOrFail({ id })
+    }
+
+    async alterarPorId(id: number, dto: Partial<LocalidadeDTO>): Promise<Localidade> {
+        const localidade = await this.obterPorId(id); // reutiliza a lógica e já lança erro se não encontrar
+        Object.assign(localidade, dto);
+        return await this.entityManager.getRepository(Localidade).save(localidade);
+    }
+
+    async deletarPorId(id: number): Promise<Localidade> {
+        const localidade = await this.obterPorId(id);
+        await this.entityManager.getRepository(Localidade).softDelete({ id });
+        return localidade;
     }
 }

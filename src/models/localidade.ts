@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, DeleteDateColumn } from "typeorm";
 import { Atividade } from "./atividade";
 import { Sublocalidade } from "./sublocalidade";
 
@@ -14,7 +14,7 @@ export class Localidade {
     descricao: string;
 
     @Column()
-    qtd_salas: number;
+    qtdSalas: number;
 
 
     @OneToMany(() => Atividade, (atividade) => atividade.localidade)
@@ -22,6 +22,9 @@ export class Localidade {
 
     @OneToMany(() => Sublocalidade, (sublocalidade) => sublocalidade.localidade)
     sublocalidade: Sublocalidade[]
+
+    @DeleteDateColumn({ name: "deleted_at", type: "timestamp", nullable: true })
+    deletedAt?: Date;
 
 }
 

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, DeleteDateColumn } from "typeorm";
 import { Feira } from "./feira";
 import { Professor } from "./professor";
 import { Localidade } from "./localidade";
@@ -36,6 +36,12 @@ export class Atividade {
     @Column()
     qtdMonitores: number;
 
+    @Column()
+    duracaoSecao: number;
+
+    @Column()
+    capacidadeVisitantes: number;
+
     @Column({
         type: "enum",
         enum: TipoAtividade,
@@ -47,12 +53,6 @@ export class Atividade {
         enum: Tipo,
     })
     tipo: Tipo;
-
-    @Column()
-    duracao_da_secao: number;
-
-    @Column()
-    capacidade_de_visitantes: number;
 
     @Column({
         type: "enum",
@@ -75,6 +75,9 @@ export class Atividade {
 
     @OneToMany(() => AgendamentoAtividadeFeira, (agendamentoAtividadeFeira) => agendamentoAtividadeFeira.atividade)
     agendamentoAtividadeFeira: AgendamentoAtividadeFeira[]
+
+    @DeleteDateColumn({ name: "deleted_at", type: "timestamp", nullable: true })
+    deletedAt?: Date;
 }
 
 export default Atividade;

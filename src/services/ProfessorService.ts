@@ -16,7 +16,7 @@ export class ProfessorService {
     async criar(dto: ProfessorDTO): Promise<Professor> {
         const professor = new Professor()
         console.log(dto.idDepartamento);
-        const departamento = await this.entityManager.getRepository(Departamento).findOneBy({ id: dto.idDepartamento })
+        const departamento = await this.entityManager.getRepository(Departamento).findOneByOrFail({ id: dto.idDepartamento })
 
         professor.nome = dto.nome
         professor.departamento = departamento
@@ -33,7 +33,12 @@ export class ProfessorService {
     }
 
     async obterPorId(id: number): Promise<Professor> {
-        return await this.entityManager.getRepository(Professor).findOneByOrFail({ id })
+        return await this.entityManager.getRepository(Professor).findOneOrFail({
+            where: { id: id },
+            relations: {
+                departamento: true
+            }
+        });
     }
 
     async alterarPorId(id: number, dto: Partial<ProfessorDTO>): Promise<Professor> {
