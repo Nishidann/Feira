@@ -2,6 +2,9 @@ import { Router, Request, Response } from "express"
 import { PessoaDTO } from "../dtos/PessoaDTO"
 
 import { PessoaController } from "../controllers/PessoaController"
+import { authMiddleware } from "../middlewares/authMiddleware"
+import { roleMiddleware } from "../middlewares/roleMiddleware"
+import { TipoPessoa } from "../models/pessoa"
 
 /**
  * @swagger
@@ -71,7 +74,7 @@ pessoaRouter.post("/pessoas", (req: Request<{}, {}, PessoaDTO>, res: Response) =
  *       404:
  *         description: Pessoa não encontrada
  */
-pessoaRouter.get("/pessoas/:id", (req: Request, res: Response) => {
+pessoaRouter.get("/pessoas/:id", authMiddleware, roleMiddleware([TipoPessoa.ORGANIZADOR]), (req: Request, res: Response) => {
     pessoaController.obterPorId(req, res)
 })
 
@@ -85,7 +88,7 @@ pessoaRouter.get("/pessoas/:id", (req: Request, res: Response) => {
  *       200:
  *         description: Lista de pessoas
  */
-pessoaRouter.get("/pessoas", (req: Request, res: Response) => {
+pessoaRouter.get("/pessoas", authMiddleware, roleMiddleware([TipoPessoa.ORGANIZADOR]), (req: Request, res: Response) => {
     pessoaController.obterTodos(req, res)
 })
 
@@ -130,7 +133,7 @@ pessoaRouter.get("/pessoas", (req: Request, res: Response) => {
  *       409:
  *         description: Chave duplicada
  */
-pessoaRouter.put("/pessoas/:id", (req: Request, res: Response) => {
+pessoaRouter.put("/pessoas/:id", authMiddleware, roleMiddleware([TipoPessoa.ORGANIZADOR]), (req: Request, res: Response) => {
     pessoaController.alterarPorId(req, res)
 })
 
@@ -153,7 +156,7 @@ pessoaRouter.put("/pessoas/:id", (req: Request, res: Response) => {
  *       404:
  *         description: Pessoa não encontrada
  */
-pessoaRouter.delete("/pessoas/:id", (req: Request, res: Response) => {
+pessoaRouter.delete("/pessoas/:id", authMiddleware, roleMiddleware([TipoPessoa.ORGANIZADOR]), (req: Request, res: Response) => {
     pessoaController.deletarPorId(req, res)
 })
 
